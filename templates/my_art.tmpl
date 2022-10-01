@@ -1,0 +1,27 @@
+{{ define "my_art.tmpl" }}
+{{ template "settings_header.tmpl" . }}
+
+
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <label for="input-file">Select image</label>
+    <input type="file" id="art" name="art">
+    <button type="submit">Upload</button>
+</form>
+<br />
+<br />
+
+<div class="max-w-screen-2xl mx-auto grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+{{ range .Pieces }}
+<div>
+  <a class="" href="/art/{{ .ImageUUID }}"><img class="w-full aspect-square" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .ImageUUID }}-200"></a>
+  
+  <div class="text-gray-300 text-sm text-center mt-2"><a class=" text-gray-400" href="/edit/{{ .ImageUUID }}">Edit</a> | 
+    <a class=" text-gray-400" href="/art/{{ .ImageUUID }}">View</a></div>
+
+</div>
+{{ end }}
+
+
+</div>
+{{ template "settings_footer.tmpl" }}
+{{ end }}

@@ -1,0 +1,44 @@
+{{ define "royale_select.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+
+<div class="max-w-screen-md px-4 mx-auto">
+    <h1 class="text-4xl font-bold mb-1 mt-6 text-gray-900">Promptist Royale Entry</h1>
+
+    <div class="py-4">For Your Submission:</div>
+
+    <img src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Art.ImageUUID }}-200">
+
+    <div class="py-4">Select the royale:</div>
+    
+    {{ range .Royales }}
+    <div class="border px-4 py-4 justify-between rounded-md">
+        <div class="flex justify-between items-center">
+            <div class="mr-3">
+                <div><a class="text-xl font-bold" href="/royale/{{ .Slug }}">{{ .Name }}</a></div>
+                <div class="text-md mb-1"><a href="/royale/{{ .Slug }}">{{ .Description }}</a></div>
+                <div class="flex space-x-4">
+                    <div class="text-gray-500">{{ .NumSubmissions }} submissions</div>
+                    <div class="text-gray-500">4 rounds</div>
+                    <div class="text-gray-500">Prize: 
+                        <span class="text-green-600 font-bold">{{ .Prize }}</span></div>
+                </div>
+            </div>
+            <div>
+                <a class="block rounded px-4 py-1 bg-green-400 text-white font-bold" href="/royale/enter?royale={{ .Slug }}&art={{ $.Art.ImageUUID }}">Select</a>
+
+            </div>
+               
+    
+        </div>
+        
+       
+    </div>
+    {{ end }}
+   
+</div>
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

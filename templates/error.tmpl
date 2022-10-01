@@ -1,0 +1,13 @@
+{{ define "error.tmpl" }}
+
+<h1>Error</h1>
+
+{{if .Errors}}
+    <ul>
+    {{ range .Errors }}
+     <li class="error">{{ . }}</li>
+    {{ end }}
+    </ul>
+{{end}}
+
+{{ end }}

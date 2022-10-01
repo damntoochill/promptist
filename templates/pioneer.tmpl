@@ -1,0 +1,39 @@
+{{ define "pioneer.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+<div class="max-w-2xl mx-auto">
+    
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold">Pioneers</h1>
+        These are the pioneers of Promptist. They are the first 100 people to join the site and are helping build the community. As a reward
+        we're giving them a set of <em>pioneer perks</em>. The main one being a <a class="underline" href="/pro">pro sub</a> <b>free for life</b>!
+    </div>
+
+    {{ range $i, $e := .Pioneers }}
+    {{ if ne $i 0}}
+    <div class="flex mb-8 items-center">
+        <div class="w-16 text-xl font-bold text-center">#{{ $i }}</div>
+        <div class="w-16">
+                <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .PhotoUUID.String }}-100-c"></a>
+        </div>
+        <div>
+             <span class=""><a class="" href="/{{ .Username }}">{{ .FullName }}</a></span>
+        </div>
+    </div>
+    {{ end}}
+    {{ end}}
+
+
+ 
+    
+
+       
+</div>
+
+
+
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

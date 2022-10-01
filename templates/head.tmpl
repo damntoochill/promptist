@@ -1,0 +1,52 @@
+{{ define "head.tmpl" }}
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns= "http://www.w3.org/1999/xhtml">
+    <head>
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-NFN9N2F');</script>
+        <!-- End Google Tag Manager -->
+
+        <meta charset="UTF-8">
+        <meta name="google" content="notranslate">
+        <meta http-equiv="Content-Language" content="en">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <meta name="description" content="Generating all the pretty things">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/public/fav/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/public/fav/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/public/fav/favicon-16x16.png">
+        <link rel="icon" type="image/x-icon" href="/public/fav/favicon.ico">
+        <link rel="manifest" href="/public/fav/site.webmanifest">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1691809151907368"
+     crossorigin="anonymous"></script>
+
+        <script type="text/javascript" src="/public/js/dropdown.js"></script>
+
+        <link href="/public/css/output.css" rel="stylesheet">
+
+        {{ if .Title }}
+            <title>{{ .Title }}</title>
+        {{ else }}
+            <title>Promptist - A place for AI artists</title>
+        {{ end }}
+       
+    </head>
+    <body class="font-sans">
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NFN9N2F"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+            <!-- End Google Tag Manager (noscript) -->
+{{ end }}

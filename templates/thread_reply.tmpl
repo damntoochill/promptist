@@ -1,0 +1,53 @@
+{{ define "thread_reply.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+
+<div class="container mx-auto">
+        <a class="underline text-gray-500" href="/forums">Forums</a> >
+        <a class="underline text-gray-500" href="/thread?id={{ .Thread.ID }}">{{ .Forum.Name }}</a> >
+        <span class="font-bold">{{ .Thread.Name }}</span> 
+</div>
+
+
+
+<div class="container mx-auto">
+    <div>
+        {{if .Problems}}
+            <h1>Problems</h1>
+            <ul class="prose">
+            {{ range .Problems }}
+            <li>{{ . }}</li>
+            {{ end }}
+            </ul>
+        {{end}}
+    </div>
+
+
+            <form method="POST" action="/thread/reply">
+
+
+                <label class="block pb-4">
+                    <textarea 
+                    type="text" 
+                    name="body" 
+                    placeholder="Post your reply"
+                    class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 
+                    rounded-md text-sm shadow-sm placeholder-slate-400 h-36"
+                    /></textarea>
+                </label>
+
+                <input type="hidden" name="thread" value="{{ .Thread.ID }}" />
+                <input type="submit" value="Reply" class="py-2 px-4 text-white no-underline bg-lime-500 rounded font-bold hover:bg-lime-700">
+            </form>
+    
+
+       
+</div>
+
+
+
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

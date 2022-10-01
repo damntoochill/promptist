@@ -1,0 +1,32 @@
+{{ define "upload.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+
+{{if .Problems}}
+    <ul class="prose">
+    {{ range .Problems }}
+     <li>{{ . }}</li>
+    {{ end }}
+    </ul>
+{{end}}
+
+
+
+<div class="container mx-auto">
+
+    <h1 class="text-2xl">Upload Your Art</h1>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="input-file">Select image</label>
+        
+<input type="file" id="art" name="art" >
+
+        <button class="py-2 px-4  text-white no-underline bg-lime-500 rounded font-bold hover:bg-lime-700" type="submit">Upload</button>
+    </form>
+</div>
+
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

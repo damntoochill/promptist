@@ -1,0 +1,35 @@
+{{ define "program.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+
+
+<div class="container mx-auto">
+
+
+    <h3 class="text-xl">{{ .Program.Name }}</h3>
+        
+    {{ .Program.Description }}
+
+
+    <div class="mx-auto grid grid-cols-6 md:grid-cols-6 lg:grid-cols-8 gap-4">
+        {{ range .Pieces }}
+        <div>
+          <a class="" href="/art/{{ .ImageUUID }}"><img class="w-full aspect-square" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .ImageUUID }}-400-c"></a>
+          <a class="" href="/art/{{ .ImageUUID }}">{{ .Name.String }}</a>
+        </div>
+      {{ end }}
+      </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

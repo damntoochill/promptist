@@ -1,0 +1,20 @@
+{{ define "tag.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+<div class="max-w-screen-2xl mx-auto">
+<h1 class="text-3xl mb-4">#{{ .Tag.Name }}</h1>
+
+
+    <div class="max-w-screen-2xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {{ range .Pieces }}
+        <div>
+        <a class="" href="/art/{{ .ImageUUID }}"><img class="w-full aspect-square" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .ImageUUID }}-400-c"></a>
+        <a class="" href="/art/{{ .ImageUUID }}">{{ .Name.String }}</a>
+        </div>
+    {{ end }}
+    </div>
+
+</div>
+
+{{ template "footer.tmpl" }}
+{{ end }}

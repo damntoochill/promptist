@@ -1,0 +1,74 @@
+{{ define "profile_header.tmpl" }}
+
+
+<div class="max-w-screen-md mx-auto mt-8 mb-6">
+
+    <div class="flex ">
+        <div class="mr-6 w-32">
+            {{ if .Profile.PhotoUUID.Valid }}
+                <a class="underline text-blue-400" href="/{{ .Profile.Username }}"><img class="rounded-full" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Profile.PhotoUUID.String }}-200-c"></a>
+            {{ else }}
+                <a class="underline text-blue-400" href="/{{ .Profile.Username }}"><img class="rounded-full" src="/public/images/nophoto2.jpg"></a>
+            {{ end }}
+        </div>
+        <div class="w-full ">
+            <div class="flex justify-between items-end">
+                <h1 class="text-2xl font-bold"><a href="/{{ .Profile.Username }}">{{ .Profile.FullName }}</a></h1>
+                <div class="flex">
+                    <div class="">
+                        <a class="rounded-md block py-1 px-4 mr-2 text-sm border font-bold" href="/chat/direct?user={{ .Profile.UserID }}">Message</a>
+                    </div>
+                {{ if .UserSession.IsAuthenticated }}
+                    {{ if eq .FollowOption 1 }}
+                    <div class="flex rounded-md text-sm py-1 px-4 text-white hover:bg-lime-600 bg-lime-500 font-sans items-center font-bold">
+                        
+                        <a href="/follow?u={{ .Profile.Username }}">Follow</a>
+                    </div>
+                    {{ else if eq .FollowOption 2 }}
+                    <div class="flex rounded-md  py-1 px-4  bg-gray-100 text-gray-500 font-sans items-center">
+                        <a href="/unfollow?u={{ .Profile.Username }}">Unfollow</a>
+                    </div>
+                    {{ end }}
+                {{ end }}
+                </div>
+
+
+            </div>
+            
+            {{ if .Profile.Location.Valid }}
+                <div class="flex text-gray-500 items-center mt-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-0.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                    </svg>
+                  <div class="">{{ .Profile.Location.String }}</div>
+                </div>
+            {{ end }}
+            {{ if .Profile.Bio.Valid }}
+                <div class=" text-gray-800 mt-1 text-xl">{{ .Profile.Bio.String }}</div>
+            {{ end }}
+
+          
+
+        </div>
+
+    </div>
+    
+
+
+    <div class="flex space-x-8 pt-6">
+
+        <div class="text-lg text-gray-400"><a href="/{{ .Profile.Username }}"><span class="font-semibold text-gray-600">Art</span> {{ .Profile.NumPieces }}</a></div>
+        <div class="text-lg text-gray-400"><a href="/{{ .Profile.Username }}/collections"><span class="font-semibold text-gray-600">Collections</span> {{ .Profile.NumCollections }}</a></div>
+        <div class="text-lg text-gray-400"><a href="/{{ .Profile.Username }}/likes"><span class="font-semibold text-gray-600">Likes</span> {{ .Profile.NumLikes }}</a></div>
+
+
+
+        <div class="text-lg text-gray-400"><a href="/{{ .Profile.Username }}/followers"><span class="font-semibold text-gray-600">Followers</span> {{ .Profile.NumFollowers }}</a></div>
+        <div class="text-lg text-gray-400"><a href="/{{ .Profile.Username }}/following"><span class="font-semibold text-gray-600">Following</span> {{ .Profile.NumFollowing }}</a></div>
+
+        <div class="text-lg text-gray-400"><a href=""><span class="font-semibold text-gray-600">Comments</span> {{ .Profile.NumComments }}</a></div>
+    </div>
+</div>
+
+{{ end }}

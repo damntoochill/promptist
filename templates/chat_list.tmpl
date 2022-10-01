@@ -1,0 +1,66 @@
+{{ define "chat_list.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+
+
+<div class="max-w-xl mx-auto">
+    <h1 class="text-2xl font-bold mb-4">Chats</h1>
+</div>
+
+<div class="max-w-xl mx-auto  ">
+    {{ range .Chats }}
+    <div class="flex mb-2 px-4 py-4 items-center h-24 border">
+        <div class="mr-2">
+            {{ if .Recipient.PhotoUUID.Valid }}
+                <a class="underline text-blue-400" href="/{{ .Recipient.Username }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Recipient.PhotoUUID.String }}-100-c"></a>
+            {{ else }}
+                <a class="underline text-blue-400" href="/{{ .Recipient.Username }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+            {{ end }}
+        </div>
+        <div class="flex-1 mr-4">
+            <div class="flex">
+                {{ if .IsGroup }}
+                <div class="font-bold mr-1">{{ range $i, $e := .Members }}{{if $i}}, {{end}}<a href="/{{$e.Username}}">{{$e.Username}}</a>{{ end }}
+                </div>
+                {{ else }}
+                <div class="font-bold mr-1"><a href="/{{ .Recipient.Username }}">{{ .Recipient.Username }}</a></div>
+                {{ end }}
+                <div class="text-gray-400">· {{ .UpdatedAtPretty }}</div>
+            </div>
+            
+          
+            {{ if .LastMessage.Valid }}
+            <a href="/chat?chat={{ .ID }}">{{ .LastMessage.String }}</a>
+            {{ else }}
+            <a href="/chat?chat={{ .ID }}">Start a conversation</a>
+            {{ end }}
+            
+        </div>
+        <div class="mr-4 ">
+            {{ if .IsRead }}
+            <span class="text-gray-300">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.022.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.98l7.5-4.04a2.25 2.25 0 012.134 0l7.5 4.04a2.25 2.25 0 011.183 1.98V19.5z" />
+              </svg></span>
+              
+            {{ else }}
+            <span class="text-orange-400">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+              </svg></span>
+              
+            {{ end }}
+        </div>
+        <div>
+            <a class="underline text-green-300" href="/chat?chat={{ .ID }}">View chat</a>
+        </div>
+    </div>
+    {{ end}}
+</div>
+</div>
+
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

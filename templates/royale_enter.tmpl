@@ -1,0 +1,46 @@
+{{ define "royale_enter.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+
+<div class="max-w-screen-md px-4 mx-auto">
+    <h1 class="text-4xl font-bold mb-1 mt-6 text-gray-900">Promptist Royale Entry</h1>
+
+    <div class="py-4">Your Submission:</div>
+
+    <img src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Art.ImageUUID }}-200">
+
+    <div class="py-4">The Royale:</div>
+    
+    <div class="border px-4 py-4 justify-between rounded-md">
+        <div class="flex justify-between items-center">
+            <div class="mr-3">
+                <div><a class="text-xl font-bold" href="/royale/{{ .Royale.Slug }}">{{ .Royale.Name }}</a></div>
+                <div class="text-md mb-1"><a href="/royale/{{ .Royale.Slug }}">{{ .Royale.Description }}</a></div>
+                <div class="flex space-x-4">
+                    <div class="text-gray-500">{{ .Royale.NumSubmissions }} submissions</div>
+                    <div class="text-gray-500">4 rounds</div>
+                    <div class="text-gray-500">Prize: 
+                        <span class="text-green-600 font-bold">{{ .Royale.Prize }}</span></div>
+                </div>
+            </div>
+            {{ if .Good }}
+            <div class="text-green-600 font-bold text-2xl">
+                Entered
+            </div>
+            {{ else }}
+            <div class="text-red-300 font-bold">
+                <b>Problem</b>: 
+                {{ .Problem }}
+            </div>
+            {{ end}}
+               
+        </div>
+        
+    </div>
+   
+</div>
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

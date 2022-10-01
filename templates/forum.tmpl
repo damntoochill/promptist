@@ -1,0 +1,67 @@
+{{ define "forum.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+<div class="container mx-auto">
+    <div class="flex justify-between mb-6 mt-6">
+      <div>
+        <a class="underline text-gray-500" href="/forums">Forums</a> >
+
+        <span class="font-bold">{{ .Forum.Name }}</span>
+  
+      </div>
+     
+
+
+      <div>
+        {{ if .UserSession.IsAuthenticated }}
+          <a class="bg-green-400 text-white px-4 py-2 rounded font-bold" href="/thread/new?forum={{ .Forum.ID }}">New Thread</a>
+        {{ end }}
+      </div>
+      
+
+
+
+    </div>
+
+
+      <table class="table-auto w-full border border-slate-400">
+        <thead>
+          <tr class="text-sm">
+            <th class="px-2 py-2 border border-slate-400 bg-slate-200">Thread title</th>
+            <th class="px-2 py-2 border border-slate-400 bg-slate-200">Created by</th>
+            <th class="px-2 py-2 border border-slate-400 bg-slate-200">Replies</th>
+            <th class="px-2 py-2 border border-slate-400 bg-slate-200">Last Post</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ range .Threads }}
+          <tr>
+            <td class="px-2 py-2 border border-slate-400"><a class="underline" href="/thread?id={{ .ID }}">{{ .Name }}</a></td>
+            <td class="px-2 py-2 border border-slate-400">
+
+<div class="flex items-center">
+  <div class="w-8 mr-2">
+    {{ if .Avatar.Valid }}
+    <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Avatar.String }}-100-c"></a>
+{{ else }}
+    <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+{{ end }}
+  </div>
+  <div><span class="font-bold"><a href="/people/{{ .Username }}">{{ .FullName }}</a></span></div>
+</div>
+
+            </td>
+            <td class="px-2 py-2 border border-slate-400 w-16">{{ .NumReplies }}</td>
+            <td class="px-2 py-2 border border-slate-400"><span class="text-sm font-bold text-gray-500">{{ .UpdatedAtPretty }}</span><br> {{ .LastMessage }}</td>
+          </tr>
+          {{ end }}
+        </tbody>
+      </table>
+
+           
+      
+</div>
+
+{{ template "footer.tmpl" }}
+{{ end }}

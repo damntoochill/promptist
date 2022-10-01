@@ -1,0 +1,107 @@
+{{ define "royale.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+
+<div class="container mx-auto">
+    <div class="flex flex-row flex-wrap py-4">
+        <aside class="w-full md:w-2/5  px-2">
+        <div class="mb-4">
+            <a class="underline" href="/royale">Back to the Royales</a>
+        </div>
+        <div class="flex justify-between">
+            <h3 class="text-sm text-gray-300 mb-1 tracking-wide">PROMPTIST ROYALE</h3>
+        </div>
+        <h1 class="text-4xl font-bold mb-2">{{ .Royale.Name }}</h1>
+        <div class="mb-2 italic">{{ .Royale.Description }}</div>
+        <div class=" ">
+            <div>Round: 1</div>
+            <div>Status: Open</div>
+            <div>Created: {{ .Royale.CreatedAtPretty }}</div>
+            <div>Time: Timer starts in round 2</div>
+        </div>
+      
+
+    <h2 class="text-2xl font-bold mt-4 mb-.5">Prize</h2>
+    <div class="mb-2 text-green-500 font-bold">{{ .Royale.Prize }}</div>
+
+    <h2 class="text-2xl font-bold mt-4 mb-.5">Rounds</h2>
+    <div class="mb-2">The allotted time for each round will shrink as the royale progresses. Each round also brings in new direction that needs to be incorporated in someway.</div>
+    <div class="flex">
+        <div class="font-bold mr-2">Round 1:</div>
+        <div>{{ .Royale.Round1Body }}</div>
+    </div>
+    <div class="flex">
+        <div class="font-bold mr-2">Round 2:</div>
+        <div class="italic text-gray-400">To be revealed</div>
+    </div>
+    <div class="flex">
+        <div class="font-bold mr-2">Round 3:</div>
+        <div class="italic text-gray-400">To be revealed</div>
+    </div>
+    <div class="flex">
+        <div class="font-bold mr-2">Round 4:</div>
+        <div class="italic text-gray-400">To be revealed</div>
+    </div>
+
+    <h2 class="text-2xl font-bold mt-4 mb-2">How to Play</h2>
+    {{ if not .UserSession.IsAuthenticated }}
+    <div class="bg-red-300 px-4 py-2 rounded mb-2">
+        You <b>need an account here on Promptist</b> in order to play. Create your profile, and then you can enter the contest. <a class="underline" href="/join">Click here to create an acccount</a>.
+    </div>
+    {{ end }}
+    
+    <div class="flex mb-1">
+        <div class="font-bold mr-2">1.</div>
+        <div>Upload your submission to your <a class="underline" href="/account/my-art">art page</a>, and from their submit it to a royale.</div>
+    </div>
+    <div class="flex mb-1">
+        <div class="font-bold mr-2">2.</div>
+        <div>(Optional) Post your submission on Twitter with the tags: <span class="text-gray-400 italic">@PromptistWeb #PromptistRoyale</span></div>
+    </div>
+    <div class="flex mb-1">
+        <div class="font-bold mr-2">3.</div>
+        <div>Voting happens after each of the 4 rounds.</div>
+    </div>
+    <div class="flex mb-1">
+        <div class="font-bold mr-2">4.</div>
+        <div>The last player standing wins. We will post the winner to the homepage of Promptist and on all of our social accounts.</div>
+    </div>
+    
+    {{ if .UserSession.IsAuthenticated }}
+    <h2 class="text-2xl font-bold mb-1">Judging</h2>
+    {{ if not .AmIJudging }}
+    <div class="mb-4">If you would like to judge, please enroll.
+        <a class="rounded-md px-4 py-2 my-2 bg-green-400 text-white font-bold" href="/royale/judge?royale={{ .Royale.Slug }}">Judge</a>
+    </div>
+    {{ else }}
+    <div class="mb-4">You are a judge for this royale.</div>
+    {{ end }}
+    {{ end }}
+    <div class="mb-4 underline">Judges</div>
+
+   
+
+</aside>
+
+
+<main role="main" class="w-full md:w-3/5  pt-1 px-2 pl-6">
+
+    <h2 class="text-2xl font-bold">Submissions</h2>
+    <div>{{ .Royale.NumSubmissions }} submissions</div>
+
+    <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        {{ range .Submissions }}
+        <div>
+          <a class="" href="/art/{{ .ArtID }}"><img class="w-full aspect-square" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .ArtID }}-200-c"></a>
+        </div>
+        {{ end }}
+    </div>
+</main>
+
+</div>
+</div>
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

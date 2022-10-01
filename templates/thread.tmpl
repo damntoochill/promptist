@@ -1,0 +1,58 @@
+{{ define "thread.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+<div class="container mx-auto">
+    <div class="flex justify-between mb-6 mt-6">
+        <div>
+          <a class="underline text-gray-500" href="/forums">Forums</a> >
+  
+          <a class="underline text-gray-500" href="/forums/{{ .Forum.Slug }}">{{ .Forum.Name }}</a> >
+          <span class="font-bold">{{ .Thread.Name }}</span> 
+    
+        </div>
+       
+  
+  
+        <div>
+          {{ if .UserSession.IsAuthenticated }}
+            <a class="bg-green-400 text-white px-4 py-2 rounded font-bold" href="/thread/reply?id={{ .Thread.ID }}">Post Reply</a>
+          {{ end }}
+        </div>
+        
+  
+  
+  
+      </div>
+
+    {{ range .Posts }}
+    <div class="flex mb-8">
+        <div class="w-16">
+            {{ if .Avatar.Valid }}
+                <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Avatar.String }}-100-c"></a>
+            {{ else }}
+                <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+            {{ end }}
+        </div>
+        <div class="flex-1">
+            <div class="space-x-0.5 ">
+                <span class="font-bold"><a class="" href="/{{ .Username }}">{{ .FullName }}</a></span>
+                <span class="text-gray-400">@{{ .Username }}</span>
+                <span class="text-gray-400">·</span>
+                <span class="text-gray-400">{{ .CreatedAtPretty }}</span>
+            </div>
+            {{ .Body }}
+        </div>
+    </div>
+    {{ end}}
+
+
+       
+</div>
+
+
+
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

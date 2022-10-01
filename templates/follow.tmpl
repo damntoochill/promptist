@@ -1,0 +1,27 @@
+{{ define "follow.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+{{ template "profile_header.tmpl" . }}
+
+<div class="container mx-auto mt-4">
+    <div class="max-w-screen-2xl mx-auto grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+        {{ range .Profiles }}
+            <div class="w-32">
+                <div >
+                {{ if .PhotoUUID.Valid }}
+                    <a class="" href="/{{ .Username }}"><img class="rounded-full w-full" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .PhotoUUID.String }}-100-c"></a>
+                {{ else }}
+                    <a class="" href="/{{ .Username }}"><img class="rounded-full w-full" src="/public/images/nophoto2.jpg"></a>
+                {{ end }}
+                </div>
+
+                <div class="text-center mt-1"><a class="text-gray-600" href="/{{ .Username }}">{{ .Username }}</a></div>
+            </div>
+
+        {{ end }}
+    </div>
+
+</div>
+
+{{ template "footer.tmpl" }}
+{{ end }}

@@ -1,0 +1,39 @@
+{{ define "forums.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+<div class="max-w-2xl mx-auto ">
+  
+    <table class="table-auto w-full">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Posts</th>
+            <th>Views</th>
+            <th>Activity</th>
+          </tr>
+        </thead>
+        <tbody>
+
+    {{ range .Forums }}
+    <tr>
+        <td><a class="font-bold underline text-green-500" href="/forums/{{ .Slug }}">{{ .Name }}</a><br><div class="text-gray-500 mt-0.5 mb-4">{{ .About }}</div></td>
+        <td class="text-center text-gray-400">{{ .NumPosts }}</td>
+        <td class="text-center text-gray-400">{{ .NumViews }}</td>
+        <td class=" text-gray-400">today</td>
+    </tr>
+    {{ end}}
+
+</tbody>
+</table>
+      
+
+       
+</div>
+
+
+
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

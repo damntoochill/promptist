@@ -1,0 +1,38 @@
+{{ define "login.tmpl" }}
+{{ template "head.tmpl" }}
+{{ template "header.tmpl" }}
+
+
+<div class="container mx-auto">
+
+
+    <h1 class="text-2xl font-bold">Login</h1>
+
+
+    {{if .Error}}
+        {{ .Error }}
+    {{end}}
+    <form action="/login" method="POST" class="mb-4">
+        <p>
+            <label for="email" >Email:</label>
+            <br />
+            <input type="text" id="email" name="email">
+        </p>
+        <p>
+            <label for="password" >Password:</label>
+            <br />
+            <input type="password" id="password" name="password">
+        </p>
+        <button type="submit" class="bg-green-300 px-4 py-4 mt-4 rounded text-green-600">Login</button>
+    </form>
+
+
+
+    <div><a class="underline text-green-300" href="/forgot-password">Forgot password?</a></div>
+    <div><a class="underline text-green-500" href="/join">Create account</a></div>
+
+
+</div>
+
+{{ template "footer.tmpl" }}
+{{ end }}

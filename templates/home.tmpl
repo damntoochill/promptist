@@ -1,0 +1,186 @@
+{{ define "home.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+<div class="container max-w-2xl mx-auto flex items-center">
+  <div class="mr-4 "><a href="/fresh"><img class="w-40" src="/public/images/fresh.png" /></a></div>
+  <div class="text-gray-500 flex-1">
+    <h1 class="font-bold text-lg text-pink-500">Welcome to Promptist!</h1>
+    This website is just getting off the ground, to read more <a class="text-black underline" href="/fresh">click here</a>! It's a place for <b>AI artists</b> to share their work, connect, and learn prompt craft. Pretty much a social networking platform for AI whisperers.  It's free to join... so <a class="text-black underline" href="/join">check it out</a>!
+  </div>
+</div>
+
+<div class="container mx-auto">
+  <div class="flex flex-row flex-wrap py-4">
+      
+      <main role="main" class="w-full sm:w-2/3 md:w-3/4 pt-1 px-2">
+        <div class="mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+          {{ range .Pieces }}
+          <div class="mb-2">
+            <a class="" href="/art/{{ .ImageUUID }}"><img class="w-full aspect-square" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .ImageUUID }}-400-c"></a>
+
+            <div class="flex justify-between items-center text-sm font-sans">
+
+              <div class="flex items-center py-2">
+                {{ if .ProfilePhotoUUID.Valid }}
+                    <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-6 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .ProfilePhotoUUID.String }}-100-c"></a>
+                {{ else }}
+                    <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+                {{ end }}
+                <a class="font-bold" href="/{{ .Username }}">{{ .FullName }}</a>
+            </div>
+
+              <div class="flex space-x-2">
+                <div class="flex space-x-0.5">
+                <a href="/like/new?piece={{ .ImageUUID }}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400 hover:text-pink-500">
+                  <path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 018-2.828A4.5 4.5 0 0118 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 01-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 01-.69.001l-.002-.001z" />
+                </svg></a>
+                <span class="text-gray-500">{{ .Likes }}</span>
+                </div>
+
+
+                <div class="flex space-x-0.5">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400 hover:text-pink-500">
+                  <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+                  <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-gray-500">{{ .Views }}</span>
+              </div>                
+                
+              </div>
+            </div>
+
+          
+
+
+
+          </div>
+        {{ end }}
+        </div>
+      </main>
+
+      <aside class="w-full sm:w-1/3 md:w-1/4 px-2">
+
+      
+        <div class="mb-4 text-gray-600 text-sm   py-4 px-4  bg-cyan-100">
+          <h3 class="font-bold text-gray-700 mb-1">Beta Notes</h3>
+        <ul class="list-disc px-4">
+          <li class="mb-1">If you can't get on the site, please <a class="underline" href="https://discord.gg/WcXPatW9sY">come into Discord</a>, and I'll help you out!</li>
+          <li>The first 100 members to join the site will get a <a class="underline" href="/pioneers">pioneer badge</a>, which includes some cool perks!</li>
+        </ul>
+        </div>
+        
+
+
+{{ if  .UserSession.IsAuthenticated }}  
+<div class="flex w-full">
+
+  <div class="flex py-2 mr-4">
+    {{ if .Brief.PhotoUUID.Valid }}
+        <a class="underline text-blue-400" href="/{{ .Brief.Username }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Brief.PhotoUUID.String }}-100-c"></a>
+    {{ else }}
+        <a class="underline text-blue-400" href="/{{ .Brief.Username }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+    {{ end }}
+</div>
+
+
+<form class="w-full content-end font-sans mb-4" method="POST" action="/post/new">
+
+
+       
+  <label class="block">
+      <textarea type="text" name="body" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+      focus:outline-none" placeholder="What's going on?" /></textarea>
+  </label>
+
+
+  
+
+  <input type="submit" value="Post"  class="py-2 {{ if not .UserSession.IsAuthenticated }} disabled {{ end }} px-4 mt-2 text-white no-underline bg-lime-500 rounded font-bold hover:bg-lime-700">
+</form>
+</div>
+{{ else }}
+
+
+<div class="mb-4">
+
+  <form action="/login" method="POST" class="mb-4">
+    <p>
+        <label for="email" >Email:</label>
+        <br />
+        <input type="text" id="email" name="email">
+    </p>
+    <p>
+        <label for="password" >Password:</label>
+        <br />
+        <input type="password" id="password" name="password">
+    </p>
+    <button type="submit" class="bg-green-300 px-4 py-4 mt-4 rounded text-green-600">Login</button>
+  </form>
+
+
+
+  <div><a class="underline text-gray-400" href="/forgot-password">Forgot password?</a></div>
+  <div><a class="underline text-gray-400" href="/join">Create account</a></div>
+</div>
+{{ end }} 
+
+
+
+
+
+
+{{ range .Posts }}
+{{ if eq .PostType 0 }}
+<div class="flex mb-4">
+  <div class="w-16 ">
+    {{ if .Avatar.Valid }}
+    <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Avatar.String }}-100-c"></a>
+{{ else }}
+    <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+{{ end }}
+  </div>
+  <div class="flex-1">
+    <div><span class="font-bold"><a href="/people/{{ .Username }}">{{ .FullName }}</a></span></div>
+    <div class="font-serif">{{ .Body }}</div>
+    <div class="text-sm text-gray-300 font-sans">
+      <a class="text-green-300" href="/reply/new?post={{ .ID }}">Reply</a> | 
+      {{ if eq .NumReplies 1 }}
+      <a class="text-green-300" href="/post/view?post={{ .ID }}">{{ .NumReplies }} reply</a>
+      {{ else }}
+      <a class="text-green-300" href="/post/view?post={{ .ID }}">{{ .NumReplies }} replies</a>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ else if eq .PostType 1 }}
+<div class="mb-4">
+  Foobar
+  {{ .Body }}
+  {{ .Username }}
+  {{ .FullName }}
+  <div>Post type: {{ .PostType }}</div>
+  {{ if .Avatar.Valid }}
+        <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Avatar.String }}-100-c"></a>
+    {{ else }}
+        <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+    {{ end }}
+
+</div>
+{{ else }}
+<div>NOTHING</div>
+{{ end }}
+
+{{ end }}
+        
+    </aside>
+
+
+
+
+  </div>
+</div>
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

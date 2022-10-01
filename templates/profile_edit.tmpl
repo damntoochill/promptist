@@ -1,0 +1,73 @@
+{{ define "profile_edit.tmpl" }}
+{{ template "settings_header.tmpl" . }}
+
+
+    <h1 class="text-4xl mb-4">Edit Profile</h1>
+    
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" action="/account/profile" method="POST">
+        <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+            Username
+        </label>
+        <input 
+        class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+        name="username" 
+        id="username" 
+        type="text" 
+        value="{{.Profile.Username}}"
+        >
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="full_name">
+                Full Name
+            </label>
+            <input 
+            class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+            name="full-name" 
+            id="full-name" 
+            type="text" 
+            value="{{.Profile.FullName}}"
+            >
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="bio">
+                    Bio
+                </label>
+                <input 
+                class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                name="bio" 
+                id="bio" 
+                type="text" 
+                value="{{ if .Profile.Bio.Valid }}{{.Profile.Bio.String}}{{ end }}"
+                >
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="location">
+                        Location
+                    </label>    
+                    <input 
+                    class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                    name="location" 
+                    id="location" 
+                    type="text" 
+                    value="{{ if .Profile.Location.Valid }}{{.Profile.Location.String}}{{ end }}"
+                    >
+                    </div>
+        <div class="flex space-x-4">
+            <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                Cancel
+            </button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+            Save
+        </button>
+      
+        </div>
+    </form>
+   
+
+
+ 
+
+
+{{ template "settings_footer.tmpl" }}
+{{ end }}

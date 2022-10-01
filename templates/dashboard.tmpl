@@ -1,0 +1,13 @@
+{{ define "dashboard.tmpl" }}
+{{ template "settings_header.tmpl" . }}
+
+
+
+
+            
+            <div><a class="underline" href="/people/{{ .Profile.Username }}">View your profile</a></div>
+
+
+
+{{ template "settings_footer.tmpl" }}
+{{ end }}

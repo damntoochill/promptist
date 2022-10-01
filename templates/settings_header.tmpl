@@ -1,0 +1,39 @@
+{{ define "settings_header.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+
+<div class="container mx-auto">
+    
+    <div class="flex flex-row flex-wrap py-4">
+        <aside class="w-full sm:w-1/3 md:w-1/4 px-2">
+            <div class="sticky top-0 p-4 w-full">
+                <!-- navigation -->
+                <h3 class="text-2xl font-medium mb-2">Account</h3>
+
+                <div><a class="underline" href="/{{ .UserSession.Username }}">View your profile</a></div>
+
+
+                <ul class="flex flex-col overflow-hidden">
+
+                    <div><a class="underline" href="/account/profile-photo">Change profile photo</a><br></div>
+                    <div><a class="underline" href="/account/email">Change email address</a></div>
+                    <div><a class="underline" href="/account/password">Change password</a></div>
+                    <div><a class="underline" href="/account/profile">Edit your profile</a></div>
+                    <p><a class="underline" href="/account/my-art">Manage my art</a></p>
+                    <p><a class="underline" href="/logout">Logout</a></p>
+
+                </ul>
+
+
+
+                {{if .UserSession.IsAdmin }}
+                <div class="py-1" role="none">
+                  <a href="/admin" class="text-gray-700 block px-4  text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Admin</a>
+                </div>
+                {{ end }}
+            </div>
+        </aside>
+        <main role="main" class="w-full sm:w-2/3 md:w-3/4 pt-1 px-2">
+           
+{{ end }}

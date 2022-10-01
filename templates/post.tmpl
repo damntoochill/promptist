@@ -1,0 +1,97 @@
+{{ define "post.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+<div class="max-w-md mx-auto">
+    <div>
+        {{if .Problems}}
+            <h1>Problems</h1>
+            <ul class="prose">
+            {{ range .Problems }}
+            <li>{{ . }}</li>
+            {{ end }}
+            </ul>
+        {{end}}
+    </div>
+
+
+    <div class="flex mb-8">
+        <div class="w-16">
+            {{ if .Post.Avatar.Valid }}
+                <a class="underline text-blue-400" href="/{{ .Post.Username }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Post.Avatar.String }}-100-c"></a>
+            {{ else }}
+                <a class="underline text-blue-400" href="/{{ .Post.Username }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+            {{ end }}
+        </div>
+        <div class="flex-1">
+            <div class="space-x-0.5 ">
+                <span class="font-bold">{{ .Post.FullName }}</span>
+                <span class="text-gray-400">@{{ .Post.Username }}</span>
+                <span class="text-gray-400">·</span>
+                <span class="text-gray-400">{{ .Post.CreatedAtPretty }}</span>
+            </div>
+            {{ .Post.Body }}
+        </div>
+    </div>
+
+    {{ range .Replies }}
+    <div class="flex mb-8">
+        <div class="w-16">
+            {{ if .Avatar.Valid }}
+                <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Avatar.String }}-100-c"></a>
+            {{ else }}
+                <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+            {{ end }}
+        </div>
+        <div class="flex-1">
+            <div class="space-x-0.5 ">
+                <span class="font-bold"><a class="" href="/{{ .Username }}">{{ .FullName }}</a></span>
+                <span class="text-gray-400">@{{ .Username }}</span>
+                <span class="text-gray-400">·</span>
+                <span class="text-gray-400">{{ .CreatedAtPretty }}</span>
+            </div>
+            {{ .Body }}
+        </div>
+    </div>
+    {{ end}}
+
+
+    <div class="flex">
+        <div class="w-16">
+            {{ if .Profile.PhotoUUID.Valid }}
+                <a class="underline text-blue-400" href="/{{ .Profile.Username }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Profile.PhotoUUID.String }}-100-c"></a>
+            {{ else }}
+                <a class="underline text-blue-400" href="/{{ .Profile.Username }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+            {{ end }}
+        </div>
+        <div class="flex-1">
+
+            <form method="POST" action="/reply/new">
+
+
+                <label class="block pb-4">
+                    <textarea 
+                    type="text" 
+                    name="body" 
+                    placeholder="Post your reply"
+                    class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 
+                    rounded-md text-sm shadow-sm placeholder-slate-400 h-36"
+                    /></textarea>
+                </label>
+
+                <input type="hidden" name="post" value="{{ .Post.ID }}" />
+                <input type="submit" value="Reply" class="py-2 px-4 text-white no-underline bg-lime-500 rounded font-bold hover:bg-lime-700">
+            </form>
+        </div>
+    </div>
+    
+
+       
+</div>
+
+
+
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

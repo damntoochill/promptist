@@ -1,0 +1,82 @@
+{{ define "profile.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+{{ template "profile_header.tmpl" . }}
+
+
+<div class="container mx-auto">
+    <div class="flex flex-row flex-wrap py-4">
+        <aside class="w-full sm:w-1/2 px-2">
+            {{ if .UserSession.IsAuthenticated }}
+
+            <div class="flex mb-6">
+                <div class="w-16">
+                    {{ if .MyBrief.PhotoUUID.Valid }}
+                        <a class="underline text-blue-400" href="/{{ .MyBrief.Username }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .MyBrief.PhotoUUID.String }}-100-c"></a>
+                    {{ else }}
+                        <a class="underline text-blue-400" href="/{{ .MyBrief.Username }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+                    {{ end }}
+                </div>
+                <div class="flex-1">
+        
+                    <form method="POST" action="/profilecomment/new">
+        
+        
+                        <label class="block pb-2">
+                            <textarea 
+                            type="text" 
+                            name="body" 
+                            placeholder="Post a profile comment"
+                            class="mt-1 block w-3/4 px-3 py-2 bg-white border border-slate-300 
+                            rounded-md text-sm shadow-sm placeholder-slate-400 h-24"
+                            /></textarea>
+                        </label>
+        
+                        <input type="hidden" name="profile-user-id" value="{{ .Profile.UserID }}" />
+                        <input type="submit" value="Comment" class="py-2 px-4 text-white no-underline bg-lime-500 rounded font-bold hover:bg-lime-700">
+                    </form>
+                </div>
+            </div>
+            {{ end }}
+
+            {{ range .Comments }}
+
+            <div class="flex mb-8">
+                <div class="w-16">
+                    {{ if .Avatar.Valid }}
+                        <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .Avatar.String }}-100-c"></a>
+                    {{ else }}
+                        <a class="underline text-blue-400" href="/{{ .Username }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+                    {{ end }}
+                </div>
+                <div class="flex-1">
+                    <div class="space-x-0.5 ">
+                        <span class="font-bold"><a class="" href="/{{ .Username }}">{{ .FullName }}</a></span>
+                        <span class="text-gray-400">@{{ .Username }}</span>
+                        <span class="text-gray-400">·</span>
+                        <span class="text-gray-400">{{ .CreatedAtPretty }}</span>
+                    </div>
+                    {{ .Body }}
+                </div>
+            </div>
+            {{ end }}
+
+
+        </aside>
+
+      
+        <main role="main" class="w-full sm:w-1/2 pt-1 px-2">
+            <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                {{ range .Pieces }}
+                <div>
+                  <a class="" href="/art/{{ .ImageUUID }}"><img class="w-full aspect-square" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .ImageUUID }}-200-c"></a>
+                </div>
+                {{ end }}
+            </div>
+        </main>
+    </div>
+</div>
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

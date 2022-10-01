@@ -1,0 +1,40 @@
+{{ define "collections_prompt.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+<div class="container mx-auto">
+
+
+<h1 class="text-2xl mb-4">My Collections</h1>
+
+
+
+<a class="inline-flex 
+        items-center py-2 px-4 m-2 
+        text-white no-underline bg-lime-500 
+        rounded font-bold 
+        hover:bg-lime-700" href="/collection/new?art={{ $.Piece.ImageUUID }}">New Collection</a>
+
+
+{{ range .Collections }}
+<div class="mb-4 px-2 py-2 border">
+    <a class="underline text-green-400" href="/{{ $.Profile.Username }}/collections/{{ .ID }}">{{ .Name }}</a>
+    {{ .PieceID }}
+    {{ if .Description.Valid }}
+    {{ .Description.String }}
+    {{ end }}
+    {{ if .IsPublic }}
+    PUBLIC
+    {{ else }}
+    PRIVATE
+    {{ end }}
+    {{ if eq .PieceID 0 }}
+    <a class="underline text-green-300" href="/collection/save?piece={{ $.Piece.ImageUUID }}&collection={{ .ID }}">Save</a>
+    {{ end }}
+</div>
+{{ end }}
+
+</div>
+
+{{ template "footer.tmpl" }}
+{{ end }}

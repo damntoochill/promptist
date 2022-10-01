@@ -1,0 +1,65 @@
+{{ define "notifications.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+
+
+<div class="container mx-auto">
+
+
+    <h3 class="text-xl mb-4 text-pink-500 font-bold">Your Notifications</h3>
+   {{ range .Notifications }}
+        {{ if eq .NotifType 0 }}
+        <div class="flex mb-8">
+            <div class="w-16">
+                {{ if .FromAvatar.Valid }}
+                    <a class="underline text-blue-400" href="/{{ .FromUsername.String }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .FromAvatar.String }}-100-c"></a>
+                {{ else }}
+                    <a class="underline text-blue-400" href="/{{ .FromUsername.String }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+                {{ end }}
+            </div>
+            <div class="flex-1">
+                <div class="space-x-0.5 ">
+                    <span class="font-bold">{{ .FromFullName.String }}</span>
+                    <span class="text-gray-400">@{{ .FromUsername.String }}</span>
+                    <span class="text-gray-400">·</span>
+                    <span class="text-gray-400">{{ .CreatedAtPretty }}</span>
+                </div>
+                <div class="text-gray-400">Commented on <a class="underline" href="/art/{{ .ArtUUID.String }}">your work</a></div>
+                
+                {{ .Body.String }}
+            </div>
+        </div>
+        {{ end }}
+        {{ if eq .NotifType 1 }}
+        <div class="flex mb-8">
+            <div class="w-16">
+                {{ if .FromAvatar.Valid }}
+                    <a class="underline text-blue-400" href="/{{ .FromUsername.String }}"><img class="rounded-full w-12 mr-2" src="https://aiart.nyc3.digitaloceanspaces.com/images/{{ .FromAvatar.String }}-100-c"></a>
+                {{ else }}
+                    <a class="underline text-blue-400" href="/{{ .FromUsername.String }}"><img class="rounded-full w-6 h-6 mr-2" src="/public/images/nophoto2.jpg"></a>
+                {{ end }}
+            </div>
+            <div class="flex-1">
+                <div class="space-x-0.5 ">
+                    <span class="font-bold">{{ .FromFullName.String }}</span>
+                    <span class="text-gray-400">@{{ .FromUsername.String }}</span>
+                    <span class="text-gray-400">·</span>
+                    <span class="text-gray-400">{{ .CreatedAtPretty }}</span>
+                </div>
+                <div class="text-gray-400">Commented on <a class="underline" href="/people/{{ $.UserSession.Username }}">your profile</a></div>
+                
+                {{ .Body.String }}
+            </div>
+        </div>
+        {{ end }}
+   {{ end }}
+</div>
+
+
+
+
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

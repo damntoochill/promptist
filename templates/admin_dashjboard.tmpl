@@ -1,0 +1,13 @@
+{{ define "admin_dashboard.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+{{ template "admin_header.tmpl" . }}
+<div class="container mx-auto">
+  <h1 class="text-3xl">
+    Admin Dashboard
+  </h1>
+  <div><a class="underline" href="/admin/product/new">New Product</a></div>
+  <div><a class="underline" href="/admin/product">List Products</a></div>
+</div>
+{{ template "footer.tmpl" }}
+{{ end }}

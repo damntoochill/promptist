@@ -1,0 +1,52 @@
+{{ define "join.tmpl" }}
+{{ template "head.tmpl"  }}
+{{ template "header.tmpl"  }}
+<div class="max-w-screen-2xl mx-auto">
+
+
+<div class="font-bold text-sm mb-8"><a class="underline" href="/rules">READ THE RULES FIRST</a></div>
+
+
+
+<h1 class="mb-4 text-xl text-pink-500 font-bold">Join the site</h1>
+
+{{if .ValidationErrors}}
+    <span class="error"><b>Requirements:</b></span>
+    <ul>
+    {{ range .ValidationErrors }}
+     <li class="error">{{ . }}</li>
+    {{ end }}
+    </ul>
+{{end}}
+
+
+
+
+
+<form action="/join" method="POST">
+    <p class="mb-4">
+        <label for="email" class="form-label">Email:</label>
+        <br />
+        <input type="text" class="mb-1 pb-0" id="email" name="email">
+        <div class="mb-4">We <b>greatly dislike</b> spam. You'll never receive email from us unless it's specified in your settings.</div>
+    </p>
+    <p class="mb-4">
+        <label for="full-name" class="form-label">Full name:</label>
+        <br />
+        <input type="text" class="form-control" id="full-name" name="full-name">
+    </p>
+    <p class="mb-4">
+        <label for="password" class="form-label">Password:</label>
+        <br />
+        <input type="password" class="form-control" id="password" name="password">
+    </p>
+    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold  px-4 py-2 my-4 rounded">Submit</button>
+</form>
+
+<p><a class="underline text-green-400" href="/forgot-password">Forgot password</a>?</p>
+
+
+</div>
+
+{{ template "footer.tmpl" }}
+{{ end }}

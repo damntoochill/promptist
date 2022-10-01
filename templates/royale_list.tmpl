@@ -1,0 +1,36 @@
+{{ define "royale_list.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+
+<div class="max-w-screen-md px-4 mx-auto">
+    <h1 class="text-4xl font-bold mb-1 mt-6 text-gray-900">The Promptist Royales</h1>
+
+    <h2 class="text-3xl text-gray-400  font-serif mb-6">Art contests for generative artists</h2>
+
+    <div class="mb-4">Welcome to the <em>Promptist Royales</em>. A series of battle royale style contests for <b>generative art</b>. 150 players enter a royale, each round the amount of time to generate art is halved, along with the players. The last player standing wins the royale and the prize.</div>
+    
+    {{ range .Royales }}
+    <div class="border px-4 py-4 justify-between rounded-md">
+        <div class="flex justify-between mb-1">
+            <div><a class="text-xl font-bold" href="/royale/{{ .Slug }}">{{ .Name }}</a></div>
+            <div class="text-gray-500">{{ .NumSubmissions }} submissions</div>
+            <div class="text-gray-500">4 rounds</div>
+            <div class="text-gray-500">Prize: 
+                <span class="text-green-600 font-bold">{{ .Prize }}</span></div>
+        </div>
+        <div class="text-md mb-4"><a href="/royale/{{ .Slug }}">{{ .Description }}</a></div>
+        <div class="flex space-x-2">
+            <a class="block rounded px-4 py-1 bg-green-400 text-white font-bold" href="/royale/{{ .Slug }}">Play</a>
+            <a class="block rounded px-4 py-1 border text-gray-500" href="/royale/{{ .Slug }}">View</a>
+
+        </div>
+    </div>
+    <div class="text-gray-400 text-sm italic mt-1 text-center">The royale begins on the  150th submission</div>
+    {{ end }}
+   
+</div>
+
+
+{{ template "footer.tmpl" }}
+{{ end }}

@@ -1,0 +1,49 @@
+{{ define "collection_new.tmpl" }}
+{{ template "head.tmpl" . }}
+{{ template "header.tmpl" . }}
+
+<div class="max-w-screen-2xl mx-auto">
+<h1>New Collection</h1>
+
+<form method="POST" action="/collection/new">
+
+    <label class="block pb-4">
+        <span class="block text-sm font-medium text-slate-700">Name</span>
+        <input type="text" name="name" required class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+        focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+        disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+        invalid:border-pink-500 invalid:text-pink-600
+        focus:invalid:border-pink-500 focus:invalid:ring-pink-500
+      "/>
+    </label>
+
+    <label class="block pb-4">
+        <span class="block text-sm font-medium text-slate-700">Description</span>
+        <textarea type="text" name="description" class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+        focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+        disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+        invalid:border-pink-500 invalid:text-pink-600
+        focus:invalid:border-pink-500 focus:invalid:ring-pink-500
+      "/></textarea>
+    </label>
+
+    <label class="block pb-4">
+        <span class="block text-sm font-medium text-slate-700">Public?</span>
+        <input type="radio" id="1" checked name="is-public" value="1"> Yes
+        <br />
+        <input type="radio" id="0" name="is-public" value="0"> No
+    </label>
+
+    <br>
+
+    {{ if .SaveMode }}
+    <input type="hidden" name="art-uuid" value="{{ .ArtUUID }}" />
+    {{ end }}
+
+    <input type="submit" value="Create" class="py-2 px-4 my-4 text-white no-underline bg-lime-500 rounded font-bold hover:bg-lime-700">
+</form>
+
+</div>
+
+{{ template "footer.tmpl" }}
+{{ end }}
